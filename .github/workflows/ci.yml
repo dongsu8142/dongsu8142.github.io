@@ -1,0 +1,42 @@
+name: Publish portfolio
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docs:
+    name: Publish portfolio
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly
+
+      - name: Setup cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install dependencies
+        run: |
+          cargo install --locked trunk
+
+      - name: Build portfolio
+        run: |
+          trunk build --release
+
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          allow_empty_commit: false
+          keep_files: true
