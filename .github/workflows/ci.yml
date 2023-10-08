@@ -40,4 +40,4 @@ jobs:
           publish_branch: gh-pages
           publish_dir: ./dist
           allow_empty_commit: false
-          keep_files: true
+          keep_files: false
