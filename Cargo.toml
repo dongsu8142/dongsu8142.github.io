@@ -8,4 +8,4 @@ codegen-units = 1
 lto = true
 
 [dependencies]
-leptos = { version = "0.5.1", features = ["csr", "nightly"] }
+leptos = { version = "0.5.2", features = ["csr", "nightly"] }
